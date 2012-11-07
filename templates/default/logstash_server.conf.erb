@@ -19,6 +19,9 @@ script
   <% if node['logstash']['server']['debug'] -%>
   export LOGSTASH_OPTS="$LOGSTASH_OPTS -vv"
   <% end -%>
+  <% if node[:logstash][:server][:plugin_path] -%>
+  export LOGSTASH_OPTS="$LOGSTASH_OPTS --pluginpath <%= node[:logstash][:server][:plugin_path] %>"
+  <% end -%>
   export OPTS="$JAVA_OPTS $GC_OPTS -jar $LOGSTASH_HOME/lib/logstash.jar $LOGSTASH_OPTS"
 
   exec /usr/bin/java $OPTS
